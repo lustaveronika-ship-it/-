@@ -3,50 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Морфологія НМТ: Інтерактивний тест</title>
+    <title>Морфологія НМТ: Оновлений тест</title>
     <style>
         :root {
             --correct-color: #2ecc71;
             --wrong-color: #e74c3c;
-            --bg-overlay: rgba(255, 255, 255, 0.92);
+            --bg-overlay: rgba(255, 255, 255, 0.94);
         }
 
         body {
-           body {
-        margin: 0;
-        padding: 10px;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        min-height: 100vh;
-        /* Видаляємо старий background-image звідси! */
-    }
+            margin: 0;
+            padding: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-    /* Цей блок додаємо повністю — він створює "розумний" фон */
-    body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        background-image: url('https://images.wallpaperscraft.ru/image/single/devushka_pantsir_zaiats_167320_1920x1080.jpg'); 
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-
-    #quiz-container {
-        background-color: var(--bg-overlay);
-        max-width: 600px;
-        width: 100%;
-        padding: 20px;
-        margin: 20px auto;
-        border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        position: relative; /* Обов'язково додаємо це */
-    }
+        /* Покращений фон для iPad та телефонів */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('https://i.pinimg.com/1200x/e6/4b/6d/e64b6dcae4f4411e400f919dbf1d0bc9.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         #quiz-container {
@@ -54,54 +40,75 @@
             max-width: 600px;
             width: 100%;
             padding: 20px;
-            margin: 10px auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        #score-counter {
+            position: sticky;
+            top: 10px;
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-weight: bold;
         }
 
         h1 {
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+            margin-bottom: 25px;
         }
 
         .question-block {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             padding: 15px;
-            background: #fff;
-            border-radius: 10px;
-            border: 1px solid #eee;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e1e8ed;
         }
 
         .question-text {
             font-weight: 700;
+            font-size: 1.05rem;
             margin-bottom: 15px;
             display: block;
+            color: #333;
         }
 
         .options {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .option {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            padding: 12px 15px;
+            border: 2px solid #edf2f7;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s ease;
-            background: white;
+            background: #f8fafc;
             font-size: 0.95rem;
         }
 
-        /* Стилі для перевірки */
+        .option:hover {
+            border-color: #3498db;
+            background: #f1f5f9;
+        }
+
         .option.correct {
             background-color: #d4edda !important;
             border-color: var(--correct-color) !important;
             color: #155724;
+            font-weight: bold;
         }
 
         .option.wrong {
@@ -120,7 +127,7 @@
             color: #3498db;
             cursor: pointer;
             font-size: 0.85rem;
-            margin-top: 10px;
+            margin-top: 12px;
             padding: 0;
             text-decoration: underline;
         }
@@ -128,127 +135,96 @@
         .hint-text {
             display: none;
             font-size: 0.85rem;
-            color: #666;
-            background: #fdf6e3;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 5px;
-        }
-
-        #score-counter {
-            position: sticky;
-            top: 0;
-            background: #3498db;
-            color: white;
+            color: #555;
+            background: #fff9db;
             padding: 10px;
-            text-align: center;
-            border-radius: 0 0 10px 10px;
-            margin-bottom: 20px;
-            z-index: 100;
+            margin-top: 8px;
+            border-radius: 8px;
+            border-left: 4px solid #fadb14;
         }
     </style>
 </head>
 <body>
 
 <div id="quiz-container">
-    <div id="score-counter">Правильних відповідей: <span id="correct-count">0</span> / 30</div>
-    <h1>Морфологія: Тест НМТ</h1>
+    <div id="score-counter">Результат: <span id="correct-count">0</span> / 30</div>
+    <h1>Морфологія: Підготовка до НМТ</h1>
     <div id="quiz-body"></div>
 </div>
 
 <script>
+    // ПРАВИЛЬНІ ВІДПОВІДІ ТЕПЕР ПЕРЕМІШАНІ (індекс 'a' вказує на правильне місце в 'o')
     const quizData = [
-        { q: "Укажіть рядок, у якому всі слова є іменниками:", a: 0, o: ["читання, ходьба, доброта", "сміливий, мужність, синіти", "три, трійка, по-третє", "високо, висота, високий"], h: "Шукайте опредмечені дії (що?)." },
-        { q: "Визначте рід іменника «сирота»:", a: 0, o: ["спільний", "чоловічий", "жіночий", "середній"], h: "Може стосуватися обох статей." },
-        { q: "Який прикметник не має ступенів порівняння?", a: 0, o: ["премудрий", "холодний", "вузький", "швидкий"], h: "Префікс пре- виключає ступені." },
-        { q: "Займенник «нічий» за розрядом:", a: 0, o: ["заперечний", "означальний", "неозначений", "відносний"], h: "Ні- = заперечення." },
-        { q: "Правильна форма числівника:", a: 1, o: ["восьмидесяти", "п'ятисот", "сімдесяти", "чотирьохстами"], h: "У десятках перша частина незмінна." },
-        { q: "Дієслово II дієвідміни:", a: 0, o: ["бачити", "писати", "чути", "нести"], h: "Вони бачАТЬ." },
-        { q: "Як пишеться «по-людськи»?", a: 0, o: ["через дефіс", "разом", "окремо", "з апострофом"], h: "По- + -и = дефіс." },
-        { q: "Незмінна частина мови:", a: 0, o: ["прислівник", "іменник", "дієслово", "прикметник"], h: "Не має закінчення." },
-        { q: "Безособове дієслово:", a: 0, o: ["Світає.", "Я сплю.", "Йде дощ.", "Квіти цвітуть."], h: "Дія без підмета." },
-        { q: "«Навколо» у сполученні «навколо саду» — це:", a: 0, o: ["прийменник", "прислівник", "іменник", "сполучник"], h: "Стоїть при іменнику." },
-        { q: "Відмінок слова «шляхом»:", a: 0, o: ["орудний", "місцевий", "давальний", "називний"], h: "Ким? Чим?" },
-        { q: "Помилка у кличному відмінку:", a: 0, o: ["Олегу", "Олеже", "Друже", "Козаче"], h: "Г змінюється на Ж." },
-        { q: "«Залізна воля» — який розряд?", a: 0, o: ["якісний", "відносний", "присвійний", "власний"], h: "Переносне значення." },
-        { q: "Помилка у правописі:", a: 0, o: ["хто-зна-що", "абихто", "ні з ки", "дехто"], h: "Хтозна через дефіс." },
-        { q: "Правильний час:", a: 0, o: ["чверть на десяту", "десять п'ятнадцять", "п'ятнадцять по десять", "десять годин п'ятнадцять"], h: "Використовуйте 'на'." },
-        { q: "«Зроблений» — це:", a: 0, o: ["пасивний дієприкметник", "активний дієприкметник", "прикметник", "дієприслівник"], h: "Дія над предметом." },
-        { q: "Вид «сказавши»:", a: 0, o: ["доконаний", "недоконаний", "минулий", "теперішній"], h: "Що зробивши?" },
-        { q: "Слово «на-гора» пишемо:", a: 0, o: ["через дефіс", "разом", "окремо", "з апострофом"], h: "Це виняток." },
-        { q: "Похідний прийменник:", a: 0, o: ["протягом", "на", "від", "біля"], h: "Утворений від іменника." },
-        { q: "Частка «хай» — це:", a: 0, o: ["формотворча", "заперечна", "питальна", "модальна"], h: "Творить наказовий спосіб." },
-        { q: "Іменник 4-ї відміни:", a: 0, o: ["пташеня", "пташка", "птах", "птаство"], h: "Суфікс -ен- при відмінюванні." },
-        { q: "Прикметник м'якої групи:", a: 0, o: ["синій", "червоний", "білий", "ясний"], h: "Закінчується на -ій." },
-        { q: "Збірний числівник:", a: 0, o: ["семеро", "сім", "сьомий", "сімка"], h: "Суфікс -еро." },
-        { q: "Протиставний сполучник:", a: 0, o: ["проте", "і", "бо", "якщо"], h: "Сурядність." },
-        { q: "Вигук:", a: 0, o: ["Ой!", "Але", "Тільки", "Над"], h: "Емоція." },
-        { q: "Наказовий спосіб:", a: 0, o: ["читай", "читав би", "буду читати", "читаєш"], h: "Заклик до дії." },
-        { q: "Помилка:", a: 0, o: ["три підручника", "три підручники", "два вікна", "чотири дні"], h: "Має бути називний множини." },
-        { q: "Дієприкметниковий зворот є в реченні:", a: 0, o: ["Квіти, омиті дощем.", "Квіти пахнуть.", "Я бачу квіти.", "Білі квіти."], h: "Ознака за дією + залежні слова." },
-        { q: "Пишемо окремо:", a: 0, o: ["на пам'ять (вивчити)", "напам'ять (знати)", "додому", "вказці"], h: "Це прислівникове сполучення." },
-        { q: "Дієприслівник відповідає на питання:", a: 0, o: ["що роблячи?", "який?", "що зробити?", "хто?"], h: "Додаткова дія." }
+        { q: "Укажіть рядок, у якому всі слова є іменниками:", a: 2, o: ["сміливий, мужність, синіти", "три, трійка, по-третє", "читання, ходьба, доброта", "високо, висота, високий"], h: "Шукайте слова, що відповідають на питання хто? що?" },
+        { q: "Визначте рід іменника «сирота»:", a: 1, o: ["чоловічий", "спільний", "жіночий", "середній"], h: "Може позначати і хлопчика, і дівчинку." },
+        { q: "Який прикметник не має ступенів порівняння?", a: 3, o: ["холодний", "вузький", "швидкий", "премудрий"], h: "Префікс пре- вже вказує на найвищу міру ознаки." },
+        { q: "До якого розряду належить займенник «нічий»?", a: 0, o: ["заперечний", "означальний", "неозначений", "питальний"], h: "Ні- виражає заперечення." },
+        { q: "Правильну форму числівника вжито в рядку:", a: 2, o: ["семидесяти", "восьмиста", "п'ятисот", "чотирьохстами"], h: "У назвах десятків перша частина не змінюється." },
+        { q: "Укажіть дієслово II дієвідміни:", a: 1, o: ["писати", "бачити", "читати", "співати"], h: "Вони бачАТЬ (виняток)." },
+        { q: "Прислівник «по-людськи» пишеться:", a: 3, o: ["разом", "окремо", "з апострофом", "через дефіс"], h: "По- + суфікс -и = дефіс." },
+        { q: "Яка частина мови є незмінною?", a: 0, o: ["прислівник", "іменник", "дієслово", "займенник"], h: "Не має закінчення." },
+        { q: "Виберіть рядок з безособовим дієсловом:", a: 2, o: ["Він спить.", "Діти граються.", "Світає.", "Я працюю."], h: "Дія без виконавця." },
+        { q: "«Навколо» у фразі «Навколо школи» — це:", a: 1, o: ["прислівник", "прийменник", "частка", "іменник"], h: "Вказує на місце біля предмета." },
+        { q: "Відмінок іменника «шляхом» (пішли шляхом):", a: 3, o: ["родовий", "давальний", "місцевий", "орудний"], h: "Питання ким? чим?" },
+        { q: "Помилка у формі кличного відмінка:", a: 0, o: ["Олегу", "Олеже", "Друже", "Сину"], h: "Має бути чергування Г/Ж." },
+        { q: "«Залізна воля» — який це розряд прикметника?", a: 2, o: ["відносний", "присвійний", "якісний", "власний"], h: "Переносне значення робить його якісним." },
+        { q: "Знайдіть помилку у правописі займенників:", a: 1, o: ["дещо", "хто зна що", "абихто", "ні з ки"], h: "Хтозна-, казна- пишуться через дефіс." },
+        { q: "Правильний запис часу 10:15:", a: 0, o: ["чверть на одинадцяту", "десять п'ятнадцять", "п'ятнадцять після десяти", "чверть одинадцятої"], h: "Прийменник 'на' для першої половини години." },
+        { q: "Форма 'засіяне' (поле) — це:", a: 2, o: ["активний дієприкметник", "прикметник", "пасивний дієприкметник", "дієприслівник"], h: "Дія виконана над предметом." },
+        { q: "Вид дієприслівника 'прочитавши':", a: 1, o: ["недоконаний", "доконаний", "теперішній", "майбутній"], h: "Що зробивши? (завершена дія)." },
+        { q: "Слово 'на-гора' пишеться:", a: 3, o: ["окремо", "разом", "з апострофом", "через дефіс"], h: "Це прислівник-виняток." },
+        { q: "Речення з похідним прийменником:", a: 0, o: ["Край дороги росла липа.", "Я пішов у ліс.", "На столі лежить книга.", "До нас прийшли гості."], h: "Край (у значенні біля) утворений від іменника." },
+        { q: "Яка частка виражає сумнів?", a: 2, o: ["тільки", "невже", "навряд чи", "хай"], h: "Вказує на невпевненість." },
+        { q: "Знайдіть іменник 4-ї відміни:", a: 1, o: ["стаття", "теля", "мати", "поле"], h: "Назви малят на -а/-я." },
+        { q: "Прикметник твердої групи:", a: 3, o: ["синій", "дорожній", "вчорашній", "зелений"], h: "Основа на твердий приголосний." },
+        { q: "Числівник 'п'ятеро' — це:", a: 0, o: ["збірний", "дробовий", "порядковий", "цілий"], h: "Позначає кількість як сукупність." },
+        { q: "Яке слово є сполучником сурядності?", a: 1, o: ["бо", "проте", "якщо", "тому що"], h: "Протиставний сполучник." },
+        { q: "Яке слово є вигуком?", a: 2, o: ["швидко", "лише", "Ой!", "через"], h: "Виражає почуття." },
+        { q: "Форма наказового способу:", a: 0, o: ["ходімо", "ходитимемо", "йшли б", "пишеш"], h: "Заклик до спільної дії." },
+        { q: "Помилка в узгодженні числівника:", a: 3, o: ["три стільці", "чотири вершники", "півтора місяця", "два підручника"], h: "Має бути -и (два підручники)." },
+        { q: "Словосполучення з дієприкметником:", a: 1, o: ["жовта фарба", "пожовкле листя", "жовтіти на сонці", "дуже жовтий"], h: "Ознака за дією (яке пожовкло)." },
+        { q: "Вивчити 'на пам'ять' пишеться:", a: 2, o: ["разом", "через дефіс", "окремо", "з апострофом"], h: "Сучасна норма для навчального контексту." },
+        { q: "Морфологічна ознака, притаманна всім дієсловам:", a: 0, o: ["вид", "час", "особа", "рід"], h: "Навіть інфінітив має вид." }
     ];
 
-    let correctScore = 0;
+    let score = 0;
     const body = document.getElementById('quiz-body');
-    const counterDisplay = document.getElementById('correct-count');
+    const counter = document.getElementById('correct-count');
 
-    quizData.forEach((data, qIndex) => {
+    quizData.forEach((item, qIdx) => {
         const block = document.createElement('div');
         block.className = 'question-block';
         
-        const qText = document.createElement('span');
-        qText.className = 'question-text';
-        qText.innerText = `${qIndex + 1}. ${data.q}`;
-        block.appendChild(qText);
-
-        const optionsDiv = document.createElement('div');
-        optionsDiv.className = 'options';
-
-        data.o.forEach((optText, oIndex) => {
-            const btn = document.createElement('div');
-            btn.className = 'option';
-            btn.innerText = optText;
-            btn.onclick = () => checkAnswer(btn, qIndex, oIndex, data.a);
-            optionsDiv.appendChild(btn);
-        });
-
-        block.appendChild(optionsDiv);
-
-        const hBtn = document.createElement('button');
-        hBtn.className = 'hint-btn';
-        hBtn.innerText = 'Підказка';
-        hBtn.onclick = () => {
-            const hText = block.querySelector('.hint-text');
-            hText.style.display = hText.style.display === 'block' ? 'none' : 'block';
-        };
-        block.appendChild(hBtn);
-
-        const hText = document.createElement('div');
-        hText.className = 'hint-text';
-        hText.innerText = data.h;
-        block.appendChild(hText);
-
+        block.innerHTML = `
+            <span class="question-text">${qIdx + 1}. ${item.q}</span>
+            <div class="options">
+                ${item.o.map((text, oIdx) => `
+                    <div class="option" onclick="handleSelect(this, ${qIdx}, ${oIdx}, ${item.a})">${text}</div>
+                `).join('')}
+            </div>
+            <button class="hint-btn" onclick="toggleHint(this)">Підказка</button>
+            <div class="hint-text">${item.h}</div>
+        `;
         body.appendChild(block);
     });
 
-    function checkAnswer(selectedBtn, qIndex, selectedIdx, correctIdx) {
-        const parent = selectedBtn.parentElement;
-        const options = parent.querySelectorAll('.option');
+    function toggleHint(btn) {
+        const text = btn.nextElementSibling;
+        text.style.display = text.style.display === 'block' ? 'none' : 'block';
+    }
 
-        if (selectedIdx === correctIdx) {
-            selectedBtn.classList.add('correct');
-            correctScore++;
-            counterDisplay.innerText = correctScore;
+    function handleSelect(btn, qIdx, oIdx, correctIdx) {
+        const options = btn.parentElement.querySelectorAll('.option');
+        if (oIdx === correctIdx) {
+            btn.classList.add('correct');
+            score++;
+            counter.innerText = score;
         } else {
-            selectedBtn.classList.add('wrong');
+            btn.classList.add('wrong');
             options[correctIdx].classList.add('correct');
         }
-
         options.forEach(opt => opt.classList.add('disabled'));
     }
 </script>
-
 </body>
 </html>
